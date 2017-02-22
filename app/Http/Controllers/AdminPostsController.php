@@ -11,6 +11,7 @@ use App\Photo;
 use App\Category;
 
 use Auth;
+use File;
 
 class AdminPostsController extends Controller
 {
@@ -87,7 +88,9 @@ class AdminPostsController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.posts.edit');
+        $categories = Category::lists('name', 'id')->all();
+        $post = Post::findOrFail($id);
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -99,7 +102,42 @@ class AdminPostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+
+        $post = Post::findOrFail($id);
+
+        if(!empty($input['photo_id'])){
+
+            $photo_delete = Photo::find($post->photo->id);
+
+            if($photo_delete){
+
+               $image_path_old = $post->photo->file;
+
+               $image_path_2 = public_path() . $image_path_old; // For linux path
+
+               //$image_path_2 = public_path() . $image_path; // For Window path
+
+               File::delete($image_path_2);
+
+               $photo_delete->delete();
+            }
+
+
+            $file = $input['photo_id'];
+
+            $name = time() . $file->getClientOriginalName();
+
+            $file->move('images', $name);
+
+            $photo = Photo::create(['file'=>$name]);
+
+            $input['photo_id'] = $photo->id;
+        }
+
+        $post->update($input);
+
+        return redirect('/admin/posts');
     }
 
     /**
