@@ -108,9 +108,9 @@ class AdminPostsController extends Controller
 
         if(!empty($input['photo_id'])){
 
-            $photo_delete = Photo::find($post->photo->id);
+            if($post->photo_id != 0){
 
-            if($photo_delete){
+               $photo_delete = Photo::find($post->photo->id);
 
                $image_path_old = $post->photo->file;
 
@@ -134,7 +134,7 @@ class AdminPostsController extends Controller
 
             $input['photo_id'] = $photo->id;
         }
-
+        // Auth::user()->posts()->whereId($id)->first()->update($input);
         $post->update($input);
 
         return redirect('/admin/posts');
@@ -148,6 +148,30 @@ class AdminPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $image_to_be_delete_path = $post->photo->file;
+
+        if($image_to_be_delete_path){
+
+            $image_to_be_delete_path_with_public_path = public_path() . $image_to_be_delete_path;
+
+            File::delete($image_to_be_delete_path_with_public_path);
+
+            $photo = Photo::findOrFail($post->photo->id);
+
+            $photo->delete();
+        }
+
+        $post->delete();
+
+        return redirect('/admin/posts');
+    }
+
+    public function post($id){
+
+        $post = Post::findOrFail($id);
+
+        return view('post', compact('post'));
     }
 }
