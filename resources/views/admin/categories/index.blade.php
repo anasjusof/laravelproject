@@ -43,8 +43,8 @@
 		      <tr>
 		        <td>{{$category->id}}</td>
 		        <td><a href="{{route('admin.categories.edit', $category->id)}}">{{$category->name}}</a></td>
-		        <td>{{$category->created_at->diffForHumans()}}</td>
-		        <td>{{$category->updated_at->diffForHumans()}}</td>
+		        <td>{{$category->created_at ? $category->created_at->diffForHumans() : 'No date'}}</td>
+		        <td>{{$category->updated_at ? $category->updated_at->diffForHumans() : 'No date'}}</td>
 		        <td>
 		        	{!! Form::open(['method'=>'DELETE', 'action'=>['AdminCategoriesController@destroy', $category->id]]) !!}
 

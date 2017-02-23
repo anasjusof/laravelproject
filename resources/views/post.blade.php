@@ -20,7 +20,7 @@
     <hr>
 
     <!-- Preview Image -->
-    <img class="img-responsive" src="{{ $post->photo->file }}" alt="">
+    <img class="img-responsive" src="{{ $post->photo ? $post->photo->file : 'No file' }}" alt="">
 
     <hr>
 
@@ -33,12 +33,16 @@
     <!-- Comments Form -->
     <div class="well">
         <h4>Leave a Comment:</h4>
-        <form role="form">
-            <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+         
+        {!! Form::open(['method'=>'POST', 'action'=>'PostCommentsController@store', 'files'=>true]) !!}
+        	<input type="hidden" name="post_id" value="{{$post->id}}">
+        	<div class='form-group'>
+		        {!! Form::textarea('body', null, ['class'=>'form-control', 'rows'=>3]) !!}
+		    </div>
+        	
+        	{!! Form::submit('Submit', ['class'=>'btn btn-primary']) !!}
+
+        {!! Form::close() !!}
     </div>
 
     <hr>

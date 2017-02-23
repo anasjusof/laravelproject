@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Auth;
+use App\Comment;
+
 class PostCommentsController extends Controller
 {
     /**
@@ -15,7 +18,8 @@ class PostCommentsController extends Controller
      */
     public function index()
     {
-        return view('admin.comments.index');
+        $comments = Comment::all();
+        return view('admin.comments.index', compact('comments'));
     }
 
     /**
@@ -36,7 +40,22 @@ class PostCommentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        $input = [
+
+            'post_id'   => $request->post_id,
+            'is_active' => $user->is_active,
+            'author'    => $user->name,
+            'email'     => $user->email,
+            'body'      => $request->body,
+            'photo'     => $user->photo->file
+
+        ];
+
+        Comment::create($input);
+
+        return redirect()->back();
     }
 
     /**
