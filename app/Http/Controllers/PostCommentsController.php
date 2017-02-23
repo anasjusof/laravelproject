@@ -66,7 +66,9 @@ class PostCommentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $comments = Comment::where('post_id', $id)->get();
+
+        return view('admin.comments.show', compact('comments'));
     }
 
     /**
@@ -89,7 +91,13 @@ class PostCommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+
+        $comment = Comment::findOrFail($id);
+
+        $comment->update($input);
+
+        return redirect('/admin/comments');
     }
 
     /**
@@ -100,6 +108,10 @@ class PostCommentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+
+        $comment->delete();
+
+        return redirect('/admin/comments');
     }
 }
