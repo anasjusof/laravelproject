@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/var/www/html/laravelproject/database/migrations/2017_02_20_102846_create_photos_table.php</file>
+            <file>file:/var/www/html/laravelproject/app/Http/routes.php</file>
+            <file>file:/var/www/html/laravelproject/app/Http/Controllers/AdminUsersController.php</file>
+            <file>file:/var/www/html/laravelproject/resources/views/admin/users/create.blade.php</file>
+            <file>file:/var/www/html/laravelproject/resources/views/includes/form_error.blade.php</file>
+            <file>file:/var/www/html/laravelproject/resources/views/layouts/admin.blade.php</file>
+            <file>file:/var/www/html/laravelproject/app/User.php</file>
+            <file>file:/var/www/html/laravelproject/database/migrations/2017_02_20_100353_add_photo_id_to_users.php</file>
+            <file>file:/var/www/html/laravelproject/app/Photo.php</file>
+            <file>file:/var/www/html/laravelproject/config/app.php</file>
+            <file>file:/var/www/html/laravelproject/resources/views/admin/users/index.blade.php</file>
+            <file>file:/var/www/html/laravelproject/app/Http/Requests/UsersRequest.php</file>
+        </group>
+    </open-files>
+</project-private>
