@@ -23,4 +23,8 @@ class CommentReply extends Model
 
 	}
 
+    public function photo(){
+        return $this->belongsTo('App\Photo');
+    }
+
 }

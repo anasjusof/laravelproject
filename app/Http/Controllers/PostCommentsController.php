@@ -42,7 +42,8 @@ class PostCommentsController extends Controller
     {
         $user = Auth::user();
 
-        $input = [
+        if(!empty($user->photo->file)){
+            $input = [
 
             'post_id'   => $request->post_id,
             'is_active' => $user->is_active,
@@ -51,7 +52,20 @@ class PostCommentsController extends Controller
             'body'      => $request->body,
             'photo'     => $user->photo->file
 
-        ];
+            ];
+        }
+        else{
+            $input = [
+
+            'post_id'   => $request->post_id,
+            'is_active' => $user->is_active,
+            'author'    => $user->name,
+            'email'     => $user->email,
+            'body'      => $request->body
+
+            ];
+        }
+
 
         Comment::create($input);
 

@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Auth;
+
+use App\CommentReply;
+
 class CommentRepliesController extends Controller
 {
     /**
@@ -36,7 +40,7 @@ class CommentRepliesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -82,5 +86,38 @@ class CommentRepliesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function createReply(Request $request)
+    {
+        $user = Auth::user();
+
+        if(!empty($user->photo->file)){
+            $input = [
+
+            'comment_id'   => $request->comment_id,
+            'is_active' => $user->is_active,
+            'author'    => $user->name,
+            'email'     => $user->email,
+            'body'      => $request->body,
+            'photo'     => $user->photo->file
+
+            ];
+        }
+        else{
+            $input = [
+
+            'comment_id'   => $request->comment_id,
+            'is_active' => $user->is_active,
+            'author'    => $user->name,
+            'email'     => $user->email,
+            'body'      => $request->body
+
+            ];
+        }
+
+        $reply = CommentReply::create($input);
+
+        return redirect()->back();
     }
 }
