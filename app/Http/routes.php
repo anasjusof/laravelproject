@@ -47,10 +47,6 @@ Route::group(['middleware'=>'admin'], function(){
 
 Route::group(['middleware'=>'auth'], function(){
 
-	Route::get('/', function () {
-	    return view('welcome');
-	});
-
 	Route::post('comment/reply', 'CommentRepliesController@createReply');
 	Route::post('admin/comments', 'PostCommentsController@store');
 

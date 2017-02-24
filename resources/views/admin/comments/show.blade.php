@@ -15,6 +15,7 @@
 	      <tr>
 	        <th>No.</th>
 	        <th>Post Title</th>
+	        <th></th>
 	        <th>Author</th>
 	        <th>Body</th>
 	        <th>Created</th>
@@ -30,6 +31,7 @@
 	      <tr>
 	        <td>{{$count}}</td>
 	        <td><a href="{{route('home.post', $comment->post->id)}}">{{$comment->post->title}}</a></td>
+	        <td><a href="{{route('admin.comments.replies.show', $comment->id)}}">View replies</a></td>
 	        <td>{{$comment->author}}</td>
 	        <td>{{$comment->body}}</td>
 	        <td>{{$comment->created_at->diffForHumans()}}</td>

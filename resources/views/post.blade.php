@@ -73,6 +73,7 @@
                             <!-- Nested Comment -->
                             <?php $countReply = 1; ?>
                             @foreach($comment->replies as $reply)
+                                @if($reply->is_active == 1)
                                 <div class="media">
                                     <a class="pull-left" href="#">
                                         <img class="media-object" height="64" width="64" src="{{$reply->photo ? $reply->photo : 'http://placehold.it/64x64'}}" alt="">
@@ -85,6 +86,7 @@
                                     </div>
                                 </div>
                                 <?php $countReply++ ?>
+                                @endif
                             @endforeach
                             <!-- End Nested Comment -->
                         @endif
