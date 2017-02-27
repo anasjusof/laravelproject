@@ -20,9 +20,11 @@
     </thead>
     <tbody>
       @if($posts)
+      <?php $count = 1; ?>
+      <?php $currentPageTotalNumber = ($posts->currentPage() - 1) * 10; ?>
       @foreach($posts as $post)
       <tr>
-        <td>{{$post->id}}</td>
+        <td>{{$count + $currentPageTotalNumber}}</td>
         <td>
           <a href="{{route('home.post', $post->id)}}">
             <img height="80" src="{{$post->photo ? $post->photo->file : 'http://placehold.it/400x400'}}">
@@ -36,9 +38,14 @@
         <td>{{$post->created_at->diffForHumans()}}</td>
         <td>{{$post->updated_at->diffForHumans()}}</td>
       </tr>
+      <?php $count++ ?>
       @endforeach
       @endif
     </tbody>
   </table>
+
+  <div class="col-sm-12">
+    {{$posts->render()}}
+  </div>
 
 @stop
